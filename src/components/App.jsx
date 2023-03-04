@@ -41,6 +41,20 @@ export class App extends Component {
     this.setState({ filter: evt.currentTarget.value });
   };
 
+  componentDidMount() {
+     if (localStorage.getItem('Phonebook')) {
+      this.setState({
+        contacts: JSON.parse(localStorage.getItem('Phonebook')),
+      });
+     }
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    if (prevState.contacts !== this.state.contacts) {
+      localStorage.setItem('Phonebook', JSON.stringify(this.state.contacts));
+    }
+  }
+
   render() {
     return (
       <Layout>
